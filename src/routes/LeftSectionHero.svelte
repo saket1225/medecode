@@ -26,7 +26,7 @@
 
 <style>
     .leftHero{
-        margin-bottom: 15rem;
+        margin-bottom: 20vh;
     }
 
     .textHero{
