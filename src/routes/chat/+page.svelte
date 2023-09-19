@@ -8,6 +8,8 @@
     import './chat.css';
     import UploadSection from './UploadSection.svelte';
     import { showLoading, hideLoading } from './loadingUtils.js';
+    import { fade } from 'svelte/transition';
+
 
     let messages = [];
     let ai_response_first = '';
@@ -96,6 +98,7 @@
 		messages = [...messages, { type: 'ai', text: ai_response_first }];
 		hasInitialMessageBeenAppended = true;
 	}
+
 </script>
 
 
@@ -106,14 +109,15 @@
         <div class="topBlender"></div>
         <div class="mainChat">
 			{#each messages as message}
-				<div class={message.type}>
-					{#if message.type === 'ai'}
-						{@html message.text} <!-- Use Svelte's HTML binding -->
-					{:else}
-						{message.text}
-					{/if}
-				</div>
-			{/each}
+                <div class={message.type} transition:fade={{ duration: 300 }}>
+                    {#if message.type === 'ai'}
+                        {@html message.text} <!-- Use Svelte's HTML binding -->
+                    {:else}
+                        {message.text}
+                    {/if}
+                </div>
+            {/each}
+
 		</div>
         <div class="input">
             <input bind:value={userInput} type="text" placeholder="Ask your question" on:input={checkInputLength} on:keydown={handleKeyPress} autofocus>
