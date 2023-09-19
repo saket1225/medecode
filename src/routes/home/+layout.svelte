@@ -1,5 +1,5 @@
 <script>
-	import './styles.css';
+	import '../styles.css';
 	import heroImage from '$lib/images/hero.webp';
 	import LeftSectionHero from './LeftSectionHero.svelte';
 </script>
