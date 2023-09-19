@@ -13,6 +13,7 @@
         filter: blur(40px);
         opacity: 0;
         transition: 2s all;
+        pointer-events: none;
     }
 
     .loading.show{
@@ -29,8 +30,12 @@
     }
 </style>
 
+<script>
+    import { isLoading } from './loadingStore.js';
+</script>  
+
 <main>
     <slot></slot>
 </main>
 
-<div class="loading"></div>
+<div class="loading" class:show={$isLoading}></div>

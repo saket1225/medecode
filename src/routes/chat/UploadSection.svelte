@@ -1,6 +1,7 @@
 <script>
   import bg from '$lib/images/bgChat.png';
   import { createEventDispatcher } from 'svelte';
+  import { showLoading, hideLoading } from './loadingUtils.js';
   const dispatch = createEventDispatcher();
 
   let file;
@@ -65,7 +66,7 @@
     }
 
   function uploadFile() {
-    console.log("Loading..."); // showLoading()
+    showLoading()
 
     const formData = new FormData();
     formData.append('file', file);
@@ -77,7 +78,7 @@
     })
     .then(response => response.json())
     .then(data => {
-      console.log("Done loading."); // hideLoading()
+      hideLoading()
       let ai_response = data.ai_response;
       let summary = data.summary;
       ai_response = convertToHTML(ai_response)
@@ -85,15 +86,13 @@
       dispatch('summary', summary);
     })
     .catch(error => {
+      hideLoading()
       console.log("Error:", error); // hideLoading() and log the error
     });
   }
 
   function startOver() {
-    showLayout = false;
-    file = null;
-    document.getElementById('fileInput').value = null; // Clear the previous file
-    document.getElementById('fileInput').click(); // Open the file system
+    location.reload();
   }
 </script>
 

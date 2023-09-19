@@ -7,6 +7,7 @@
     import { onMount, tick } from 'svelte';
     import './chat.css';
     import UploadSection from './UploadSection.svelte';
+    import { showLoading, hideLoading } from './loadingUtils.js';
 
     let messages = [];
     let ai_response_first = '';
@@ -40,7 +41,7 @@
             chatDiv.scrollTop = chatDiv.scrollHeight;
 
             // Start the loading process
-            console.log("Loading started");
+            showLoading()
 
             // Fetch request
             fetch('https://orca-app-su2vk.ondigitalocean.app/api/chat', {
@@ -51,19 +52,27 @@
 				credentials: 'include',
                 body: JSON.stringify({ summary: summary, user_input: trimmedInput })
             })
+
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
-            .then(data => {
-                console.log("Loading ended");
+
+            .then(async data => {
+                hideLoading();
                 ai_response = data.ai_response;
                 messages = [...messages, { type: 'ai', text: ai_response }];
+
+                // Scroll to the bottom
+                await tick();
+                const chatDiv = document.querySelector('.mainChat');
+                chatDiv.scrollTop = chatDiv.scrollHeight;
             })
+
             .catch(error => {
-                console.log("Loading ended");
+                hideLoading()
                 console.error('Error:', error);
             });
         }
@@ -230,7 +239,7 @@
     }
 
     .ai{
-        margin-top: 2rem;
+        margin-top: 1rem;
         letter-spacing: 1px;
         width: 80%;
         font-weight: 400;
