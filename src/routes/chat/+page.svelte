@@ -81,9 +81,12 @@
     });
 
     // Reactive statement to watch ai_response_first
-    $: if (ai_response_first && ai_response_first.trim().length > 0) {
-        messages = [...messages, { type: 'ai', text: ai_response_first }];
-    }
+    let hasInitialMessageBeenAppended = false;
+
+	$: if (ai_response_first && ai_response_first.trim().length > 0 && !hasInitialMessageBeenAppended) {
+		messages = [...messages, { type: 'ai', text: ai_response_first }];
+		hasInitialMessageBeenAppended = true;
+	}
 </script>
 
 
@@ -120,7 +123,7 @@
 		pointer-events: none;
 	}
 
-    .aiResponse, .userResponse {
+    .ai, .user {
         opacity: 1;
     }
 
@@ -226,7 +229,7 @@
         background: #061350;
     }
 
-    .aiResponse{
+    .ai{
         margin-top: 2rem;
         letter-spacing: 1px;
         width: 80%;
@@ -235,7 +238,7 @@
         font-size: 18px;
     }
 
-    .userResponse{
+    .user{
         width: 80%;
         letter-spacing: 1px;
         font-size: 18px;
