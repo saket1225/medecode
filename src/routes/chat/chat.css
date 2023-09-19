@@ -3,6 +3,7 @@
 body {
 	background: #EFE3DB;
 	font-family: 'General Sans', sans-serif;
+    overflow: hidden;
 }
 
 *{

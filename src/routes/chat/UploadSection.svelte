@@ -1,23 +1,101 @@
 <script>
-    import bg from '$lib/images/bgChat.png'
+  import bg from '$lib/images/bgChat.png';
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
 
-    let file;
-    let showLayout = false;
-  
-    function handleFileChange(event) {
-      file = event.target.files[0];
-      if (file) {
-        showLayout = true;
+  let file;
+  let showLayout = false;
+
+  function handleFileChange(event) {
+    file = event.target.files[0];
+    if (file) {
+      showLayout = true;
+      uploadFile();  // Automatically upload the file
+    }
+  }
+
+  function convertToHTML(text) {
+      // Regular expression to match URLs
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+      // Check if the entire text is a URL
+      if (urlRegex.test(text.trim())) {
+          return `<a href="${text.trim()}" target="_blank">${text.trim()}</a>`;
       }
+
+      // Split the text into lines
+      const lines = text.split('\n');
+      
+      // Initialize an empty array to hold HTML lines
+      let htmlLines = [];
+
+      // Loop through each line to convert it to HTML
+      lines.forEach(line => {
+      // Check if the line contains a URL
+      const urls = line.match(urlRegex);
+      if (urls) {
+          urls.forEach(url => {
+          line = line.replace(url, `<a href="${url}" target="_blank">${url}</a>`);
+          });
+      }
+
+      if (line.startsWith('**')) {
+          // Convert bold text
+          htmlLines.push(`<strong>${line.replace('**', '').replace('**', '')}</strong>`);
+      } else if (line.startsWith('* ')) {
+          // Convert bullet points
+          htmlLines.push(`<li>${line.replace('* ', '')}</li>`);
+      } else if (line.includes(':')) {
+          // Convert key-value pairs
+          const [key, value] = line.split(':');
+          htmlLines.push(`<p><span class="key">${key.trim()}</span>: <span class="value">${value.trim()}</span></p>`);
+      } else if (line.trim() === '') {
+          // Convert empty lines to HTML breaks
+          htmlLines.push('<br>');
+      } else {
+          // Handle other lines as regular text
+          htmlLines.push(`<p>${line}</p>`);
+      }
+      });
+      
+      // Wrap bullet points in <ul> tags
+      const html = htmlLines.join('\n').replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
+      
+      return html;
     }
-  
-    function startOver() {
-      showLayout = false;
-      file = null;
-      document.getElementById('fileInput').value = null; // Clear the previous file
-      document.getElementById('fileInput').click(); // Open the file system
-    }
-  </script>
+
+  function uploadFile() {
+    console.log("Loading..."); // showLoading()
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('https://orca-app-su2vk.ondigitalocean.app/api/summarize', {
+      method: 'POST',
+      credentials: 'include',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Done loading."); // hideLoading()
+      let ai_response = data.ai_response;
+      let summary = data.summary;
+      ai_response = convertToHTML(ai_response)
+      dispatch('message', ai_response);
+      dispatch('summary', summary);
+    })
+    .catch(error => {
+      console.log("Error:", error); // hideLoading() and log the error
+    });
+  }
+
+  function startOver() {
+    showLayout = false;
+    file = null;
+    document.getElementById('fileInput').value = null; // Clear the previous file
+    document.getElementById('fileInput').click(); // Open the file system
+  }
+</script>
 
   <div class="uploadSection">
     <img src={bg} alt="bgChat" class="bgChat">

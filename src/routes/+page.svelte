@@ -1,5 +1,10 @@
+<svelte:head>
+	<title>Medecode</title>
+	<meta name="description" content="Medecode, let's rock it!" />
+</svelte:head>
+
 <script>
-	import '../styles.css';
+	import './styles.css';
 	import heroImage from '$lib/images/hero.webp';
 	import LeftSectionHero from './LeftSectionHero.svelte';
 </script>
