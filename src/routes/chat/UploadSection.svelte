@@ -2,7 +2,10 @@
   import bg from '$lib/images/bgChat.png';
   import { createEventDispatcher } from 'svelte';
   import { showLoading, hideLoading } from './loadingUtils.js';
+  import { isFileUploaded } from './fileStoreBool.js';
+  import { startOver } from './startAgain.js';
   const dispatch = createEventDispatcher();
+  
 
   let file;
   let showLayout = false;
@@ -11,8 +14,13 @@
     file = event.target.files[0];
     if (file) {
       showLayout = true;
-      uploadFile();  // Automatically upload the file
+      uploadFile();  // Automatically upload the file\
+      $isFileUploaded = true;
     }
+  }
+
+  function fileUploadedTrue(){
+    $isFileUploaded = true;
   }
 
   function convertToHTML(text) {
@@ -68,6 +76,8 @@
   function uploadFile() {
     showLoading()
 
+    
+
     const formData = new FormData();
     formData.append('file', file);
 
@@ -91,14 +101,11 @@
     });
   }
 
-  function startOver() {
-    location.reload();
-  }
 </script>
 
-  <div class="uploadSection">
+  <div class="uploadSection" class:hiddenMobile={$isFileUploaded}>
     <img src={bg} alt="bgChat" class="bgChat">
-    <input type="file" id="fileInput" accept="image/*" on:change={handleFileChange} style="display: none;" />
+    <input name="upload_file" type="file" id="fileInput" accept="image/*" on:change={handleFileChange} style="display: none;" />
     {#if !showLayout}
       <button class="uploadReport" on:click={() => document.getElementById('fileInput').click()}>
         Upload Report
@@ -108,6 +115,12 @@
       </button>
     {:else}
       <div class="uploadedLayout">
+        <button class="cross" on:click={fileUploadedTrue}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.000183105" y="14.3428" width="20" height="1.6" transform="rotate(-45 0.000183105 14.3428)" fill="#071966"/>
+            <rect x="1.13135" width="20" height="1.6" transform="rotate(45 1.13135 0)" fill="#071966"/>
+          </svg>        
+        </button>
         <div class="imageWrapper">
           <img src={URL.createObjectURL(file)} alt="Uploaded File" class="uploadedImage" />
         </div>
@@ -122,11 +135,19 @@
   </div>
   
   <style>
+    .cross{
+      display: none;
+    }
+
     .uploadSection {
       position: relative;
       height: 100vh;
     }
-  
+
+    .hiddenMobile {
+      display: block; /* or whatever you want to do when hidden */
+    }
+    
     .bgChat {
       inset: 0;
       height: 100vh;
@@ -149,6 +170,9 @@
       z-index: 1;
       cursor: pointer;
       transition: .1s all;
+      width: 60%;
+      align-items: center;
+      justify-content: center;
     }
   
     .uploadReport:hover {
@@ -200,6 +224,58 @@
     
     .startOver:hover{
         background: #061350;
+    }
+
+    @media only screen and (max-width: 1000px){
+        .uploadSection{
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .uploadSection .bgChat{
+          object-fit: cover;
+          width: 100vw;
+        }
+
+        .uploadSection button{
+          align-items: center;
+          justify-content: center;
+          width: 50%;
+        }
+
+        .hiddenMobile {
+          display: none; /* or whatever you want to do when hidden */
+        }
+
+        .cross{
+          position: absolute;
+          inset: 30px;
+          background: rebeccapurple;
+          z-index: 100;
+          width: 40px !important;
+          height: 40px;
+          display: block;
+          background: none;
+          outline: none;
+          border: none;
+          cursor: pointer;
+        }
+
+        .cross svg{
+          transform: scale(1.5);
+        }
+
+        .startOver{
+          bottom: 10rem;
+        }
+    }
+
+    @media only screen and (max-width: 500px){
+        .uploadSection button{
+          align-items: center;
+          justify-content: center;
+          width: 90%;
+        }
     }
   </style>
   
