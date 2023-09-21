@@ -152,6 +152,8 @@
       inset: 0;
       height: 100vh;
       z-index: -1;
+      width: 428px;
+      object-fit: cover;
     }
   
     .uploadReport {
@@ -173,6 +175,11 @@
       width: 60%;
       align-items: center;
       justify-content: center;
+    }
+
+    .uploadReport svg{
+      width: 17px;
+      height: 21px;
     }
   
     .uploadReport:hover {
@@ -266,7 +273,7 @@
         }
 
         .startOver{
-          bottom: 10rem;
+          bottom: 5rem;
         }
     }
 

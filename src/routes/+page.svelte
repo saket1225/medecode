@@ -63,11 +63,11 @@
 		font-weight: 400;
 		line-height: normal;
 		margin-top: 5rem;
+		margin-bottom: 3rem;
 	}
 
 	.logo span{
 		color: #F4BB94;
-		font-size: 28px;
 		font-style: normal;
 		font-weight: 600;
 		line-height: normal;
@@ -80,6 +80,7 @@
 		right: 0;
 		float: right;
 		height: 100vh;
+		object-fit: cover;
 	}
 
 	.warning{
@@ -93,6 +94,7 @@
 		flex-direction: column;
 		gap: 2rem;
 		width: 50%;
+		margin-left: 4rem;
 	}
 
 	.warning{
@@ -118,5 +120,58 @@
 
 	.warning .description a{
 		color: #48E9FF;
+	}
+
+	/* Mobile Responsive */
+	@media only screen and (max-width: 1000px) {
+		.logo{
+			font-size: 22px;
+			margin-bottom: 7rem;
+		}
+
+		.app {
+			flex-direction: column;
+		}
+
+		.leftPartHero {
+			position: static; /* Make it unsticky */
+			height: auto;
+		}
+
+		.heroImage {
+			height: auto;
+			width: 100%;
+		}
+
+		.rightSection{
+			margin-top: -3rem;
+		}
+
+		.rightSection, .leftPartHero {
+			width: 100%;
+		}
+
+		.warning {
+			left: 50%;
+			width: 90%;
+			font-size: 16px;
+		}
+
+		.rightSection{
+			margin-left: -59px;
+			width: 100vw;
+		}
+	}
+
+	@media only screen and (max-width: 650px) {
+        .leftPartHero{
+            margin-left: -15px;
+        }
+	}
+
+	@media only screen and (max-width: 500px) {
+        .leftPartHero{
+            margin-left: -30px;
+        }
 	}
 </style>

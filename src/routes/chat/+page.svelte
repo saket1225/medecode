@@ -331,11 +331,12 @@
         }
 
         .logo{
+            width: 100%;
+            text-align: center;
             top: auto;
-            transform: translateX(-50%);
             right: auto;
-            left: 50%;
-            bottom: 5vh;
+            bottom: 1rem;
+            transform: scale(0.8);
         }
 
         .showChatPhone{
