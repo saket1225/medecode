@@ -1,13 +1,16 @@
 <script>
 	import leftSectionText from '$lib/images/heroText.svg'
+    import mobileHeroText from "$lib/images/mobileherotext.svg"
 </script>
 
 <div class="leftHero">
     <!-- image showing the text headings -->
-	<img src={leftSectionText} alt="text" class="textHero">
+	<img src={leftSectionText} alt="text" class="textHero desktop">
+	<img src={mobileHeroText} alt="text" class="textHero mobile">
     
     <!-- description -->
-    <h2 class="description">Understand the health of people closest to you <br> in simple language</h2>
+    <h2 class="description desktop">Understand the health of people closest to you <br> in simple language</h2>
+    <h2 class="description mobile">Understand the health of people <br> closest to you, in simple language</h2>
 
     <!-- upload button -->
     <a href="/chat" data-sveltekit-reload>
@@ -33,6 +36,14 @@
 
     .textHero{
         width: 35rem;
+    }
+
+    .mobile{
+        display: none;
+    }
+
+    .desktop{
+        display: block;
     }
 
 	.description{
@@ -99,6 +110,14 @@
             width: 25rem;
         }
 
+        .mobile{
+            display: block;
+        }
+
+        .desktop{
+            display: none;
+        }
+
         .description{
             font-size: 1.3rem;
         }
@@ -117,8 +136,16 @@
             width: 22rem;
         }
 
+        .mobile{
+            display: block;
+        }
+
+        .desktop{
+            display: none;
+        }
+
         .description{
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
 	}
 
@@ -127,8 +154,16 @@
             width: 20rem;
         }
 
+        .mobile{
+            display: block;
+        }
+
+        .desktop{
+            display: none;
+        }
+
         .description{
-            font-size: 0.9rem;
+            font-size: 1.2rem;
         }
 	}
 </style>

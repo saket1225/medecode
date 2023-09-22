@@ -126,7 +126,9 @@
             </button>
         </div>
     {/if}
-    <h2 class="logo">Me<span>decode_</span></h2>
+    <div class="logowrapper">
+        <h2 class="logo">Me<span>decode_</span></h2>
+    </div>
     <UploadSection on:message={handleMessage} on:summary={handleSummary} />
     <div class="chat {$isFileUploaded ? 'showChatPhone' : ''}">
         <div class="topBlender"></div>
@@ -331,12 +333,12 @@
         }
 
         .logo{
-            width: 100%;
             text-align: center;
             top: auto;
             right: auto;
             bottom: 1rem;
-            transform: scale(0.8);
+            transform: scale(0.6);
+            width: 100%;
         }
 
         .showChatPhone{
