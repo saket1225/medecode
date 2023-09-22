@@ -1,6 +1,5 @@
 <svelte:head>
 	<title>Medecode</title>
-	<meta name="description" content="Medecode, let's rock it!" />
 </svelte:head>
 
 <script>
