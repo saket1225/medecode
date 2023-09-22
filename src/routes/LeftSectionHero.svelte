@@ -102,6 +102,14 @@
         .description{
             font-size: 1.3rem;
         }
+
+        .upload{
+            font-size: 0.9rem;
+        }
+
+        .upload svg{
+            transform: scale(0.8);
+        }
     }
 
     @media only screen and (max-width: 500px) {

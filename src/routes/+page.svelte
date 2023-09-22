@@ -33,7 +33,7 @@
 			<h2 class="description">
 				This app provides general information about your medical reports. It is not a substitute for professional medical advice. If you have health concerns, consult a doctor for accurate evaluation and guidance. <br> Your health is paramount.
 				<br><br>
-				<a href="https://www.youtube.com/" target="_blank">Privacy Policy</a>
+				<a href="https://docs.google.com/document/d/1r1nMwiOMc-YcCEmwBDBQ8c1e4hMXAMlPKd68pb0oMCk/edit?usp=sharing" target="_blank">Privacy Policy</a>
 			</h2>
 		</div>
 	</div>

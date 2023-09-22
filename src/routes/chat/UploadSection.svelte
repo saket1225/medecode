@@ -273,7 +273,7 @@
         }
 
         .startOver{
-          bottom: 5rem;
+          bottom: 8rem;
         }
     }
 
