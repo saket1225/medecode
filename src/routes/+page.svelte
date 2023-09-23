@@ -4,7 +4,7 @@
 
 <script>
 	import './styles.css';
-	import heroImage from '$lib/images/hero.webp';
+	import heroImage from '$lib/images/hero.avif';
 	import LeftSectionHero from './LeftSectionHero.svelte';
 </script>
 

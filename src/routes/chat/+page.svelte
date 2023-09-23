@@ -12,6 +12,17 @@
     import { isFileUploaded } from './fileStoreBool.js';
     import { startOver } from './startAgain';
 
+    onMount(() => {
+        // Send a signal to start a new chat
+        fetch('https://orca-app-su2vk.ondigitalocean.app/api/startnew', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        })
+    })
+
     function startAgain() {
         startOver();
     }
