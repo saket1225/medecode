@@ -1,0 +1,9 @@
+{
+	"/": [
+		"src/routes/+page.js"
+	],
+	"/chat": [
+		"src/routes/chat/+page.js"
+	],
+	"/login": []
+}
