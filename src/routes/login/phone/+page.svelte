@@ -6,7 +6,7 @@
   let phoneNumber = '';
   let verificationCode = '';
   let recaptchaVerifier;
-
+//let abcd=0;
   const sendOtp = async () => {
     try {
       const phoneNumberWithCountryCode = `+${countryCode}${phoneNumber}`;
