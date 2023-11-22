@@ -1,30 +1,43 @@
 <script>
-    import { onMount } from 'svelte';
-    //import { getAuth, signInWithRedirect } from 'firebase/compat/auth'; // Updated import
-    import { auth,firebase } from '../login/firebaseconfig'; // Adjust the path
-    import { navigate } from 'svelte-routing';
-  
-    let phoneIcon = "􀟝";
-    let googleIconSrc = "https://s3-alpha-sig.figma.com/img/d8c0/b552/484e401a80c740224d5cd08dd0bf7806?Expires=1701043200&Signature=HQHB5P0eiQ00UY19Wof5XWR5vJK-gLWYTkU8VUCPu~dHGWtGf7gWuiYXJb00ojqqMwYrMJi9jl8g-UZxQJHvvWLQJ9XT2OKve2uPV~tpDaHWYIvKMmpgxrywL76MjzluDBh55cHpzKU~MCy93AY07BSb~nwfi2DvJ4pl0VQLqIuTfwh55C1FQU4dwoCTww6u4YdG3XHOVKGbgakK73TNFF67KmCOfED89xNdLLoP6wanaUjf2YszG5HoOCNWBewVBHziyNrMOQ2ukQ-sAAtypuAq6W3AzpJE~B6lt5EOXOUdEo4sCrVv2dH3jxoHJokMp~qcafH8wzqxOZ~sxh925w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"; // Replace with the correct path
-  
-    async function signInWithGoogle() {
+  import { onMount } from 'svelte';
+  import { auth, firebase } from '../login/firebaseconfig';
+  import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
+  import { goto } from '$app/navigation';
+
+  let phoneIcon = "􀟝";
+  let googleIconSrc = "https://s3-alpha-sig.figma.com/img/d8c0/b552/484e401a80c740224d5cd08dd0bf7806?Expires=1701043200&Signature=HQHB5P0eiQ00UY19Wof5XWR5vJK-gLWYTkU8VUCPu~dHGWtGf7gWuiYXJb00ojqqMwYrMJi9jl8g-UZxQJHvvWLQJ9XT2OKve2uPV~tpDaHWYIvKMmpgxrywL76MjzluDBh55cHpzKU~MCy93AY07BSb~nwfi2DvJ4pl0VQLqIuTfwh55C1FQU4dwoCTww6u4YdG3XHOVKGbgakK73TNFF67KmCOfED89xNdLLoP6wanaUjf2YszG5HoOCNWBewVBHziyNrMOQ2ukQ-sAAtypuAq6W3AzpJE~B6lt5EOXOUdEo4sCrVv2dH3jxoHJokMp~qcafH8wzqxOZ~sxh925w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4";
+
+  async function navphoneauth() {
+    goto("/login/phone");
+  }
+
+  onMount(async () => {
+    try {
+      // Handle the redirection and get the result
+      const result = await getRedirectResult(auth);
+
+      // If there is a user in the result, navigate to the '/chat' page
+      if (result.user) {
+        console.log('Google Sign-In Successful:', result.user);
+        goto('/chat');
+      }
+    } catch (error) {
+      console.error('Google Sign-In Error:', error.message);
+    }
+  });
+
+  async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     try {
       // Start the Google Sign-In process
-      await auth.signInWithRedirect(provider);
-      
-      // Handle the redirection and get the result
-      const result = await auth.getRedirectResult();
-
-      // `result.user` contains the user information
-      console.log('Google Sign-In Successful:', result.user);
-      navigate('/chat');
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error('Google Sign-In Error:', error.message);
     }
   }
-  </script>
+</script>
+
   
 
 <style>
@@ -171,7 +184,7 @@
 <div class="login-1">
     <div class="phone-parent" id="frameContainer">
       <div class="phone">{phoneIcon}</div>
-      <button class="use-phone-number">Use phone number</button>
+      <button class="use-phone-number" on:click={navphoneauth}>Use phone number</button>
     </div>
     <div class="image-15-parent">
       <img class="image-15-icon" alt="" src="{googleIconSrc}" />
