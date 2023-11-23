@@ -13,7 +13,7 @@
     <h2 class="description mobile">Understand the health of people <br> closest to you, in simple language</h2>
 
     <!-- upload button -->
-    <a href="/chat" data-sveltekit-reload>
+    <a href="/login" data-sveltekit-reload>
         <button class="upload">
             Upload Report
             <svg class="uploadIcon" width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">

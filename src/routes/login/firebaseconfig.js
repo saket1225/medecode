@@ -2,7 +2,9 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { deleteApp, getApp, getApps, initializeApp } from "firebase/app";
+import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
+
+
 const firebaseConfig = {
   // Your Firebase configuration here...
   apiKey: "AIzaSyCWVjAspWQgBTlFeJrri9jjBpan9wY5sF8",
@@ -15,7 +17,7 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+const auth = getAuth(firebaseApp);
 const db = firebase.firestore(firebaseApp);
-const auth = firebase.auth(firebaseApp);
 
-export { firebase, db, auth };
+export { firebase, db, auth, signInWithPhoneNumber, RecaptchaVerifier };

@@ -5,5 +5,7 @@
 	"/chat": [
 		"src/routes/chat/+page.js"
 	],
-	"/login": []
+	"/login": [],
+	"/login/phone": [],
+	"/login/phone/otp": []
 }
