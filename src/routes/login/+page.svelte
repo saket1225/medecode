@@ -4,9 +4,9 @@
   import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
   import { goto } from '$app/navigation';
 
-  let phoneIcon = "􀟝";
-  let googleIconSrc = "https://s3-alpha-sig.figma.com/img/d8c0/b552/484e401a80c740224d5cd08dd0bf7806?Expires=1701043200&Signature=HQHB5P0eiQ00UY19Wof5XWR5vJK-gLWYTkU8VUCPu~dHGWtGf7gWuiYXJb00ojqqMwYrMJi9jl8g-UZxQJHvvWLQJ9XT2OKve2uPV~tpDaHWYIvKMmpgxrywL76MjzluDBh55cHpzKU~MCy93AY07BSb~nwfi2DvJ4pl0VQLqIuTfwh55C1FQU4dwoCTww6u4YdG3XHOVKGbgakK73TNFF67KmCOfED89xNdLLoP6wanaUjf2YszG5HoOCNWBewVBHziyNrMOQ2ukQ-sAAtypuAq6W3AzpJE~B6lt5EOXOUdEo4sCrVv2dH3jxoHJokMp~qcafH8wzqxOZ~sxh925w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4";
 
+  
+  import phoneIcon from '$lib/images/phone.png';
   async function navphoneauth() {
     goto("/login/phone");
   }
@@ -87,7 +87,7 @@
 
   .image-15-icon {
     position: relative;
-    width: 21.52px;
+    width: 18px;
     height: 22px;
     object-fit: cover;
   }
@@ -183,13 +183,10 @@
 </style>
 <div class="login-1">
     <div class="phone-parent" id="frameContainer">
-      <div class="phone">{phoneIcon}</div>
+      <img class="image-15-icon" alt="" src="{phoneIcon}" />
       <button class="use-phone-number" on:click={navphoneauth}>Use phone number</button>
     </div>
-    <div class="image-15-parent">
-      <img class="image-15-icon" alt="" src="{googleIconSrc}" />
-      <button on:click={signInWithGoogle} class="continue-with-google">Continue with Google</button>
-    </div>
+    
     <div class="create-an-account">
       Create an account or sign in to manage your health records and save your history
     </div>
